@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GameHub - Toko CD Key Digital</title>
+  <style>
+    :root {
+      --primary: #6c5ce7;
+      --primary-dark: #5a4fcf;
+      --bg: #0f0f1a;
+      --card-bg: #1a1a2e;
+      --text: #f8f9fa;
+      --text-muted: #aaa;
+      --success: #00b894;
+      --danger: #d63031;
+      --border: #2d2d44;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 40px;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), #a29bfe);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+      color: white;
+    }
+    .navbar-title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .navbar-right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover { background: var(--border); }
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+    .btn-sm { padding: 5px 10px; font-size: 13px; }
+
+    /* Steam Info Banner */
+    .steam-banner {
+      background: linear-gradient(90deg, #1b2838, #2a475e);
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #c7d5e0;
+      border-bottom: 1px solid #3a5c7a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .steam-logo {
+      width: 20px;
+      height: 20px;
+      background: #171a21;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* Search Bar */
+    .search-container {
+      padding: 15px 20px;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .search-input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+
+    /* Game Grid Layout */
+    .games-container {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Large Card - Full Width */
+    .card-large {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      background: var(--card-bg);
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card-large:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .card-large-img {
+      width: 140px;
+      height: 100%;
+      min-height: 100px;
+      object-fit: cover;
+      background: #222;
+    }
+    .card-large-content {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .card-large-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .card-large-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-large-price {
+      margin-top: 10px;
+      font-weight: 700;
+      color: var(--success);
+      font-size: 16px;
+    }
+
+    /* Small Cards Grid - 2 Columns */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .card-small {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-small:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    }
+    .card-small-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      background: #222;
+    }
+    .card-small-body {
+      padding: 12px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-small-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-small-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-small-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .card-small-price {
+      font-weight: 700;
+      color: var(--success);
+      font-size: 15px;
+    }
+    .card-small-platform {
+      font-size: 11px;
+      background: var(--border);
+      padding: 3px 8px;
+      border-radius: 20px;
+      color: var(--text-muted);
+    }
+
+    /* Admin Buttons Overlay */
+    .admin-actions {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+    .admin-actions button {
+      pointer-events: auto !important;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: var(--card-bg);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      border: 1px solid var(--border);
+    }
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-title { font-size: 18px; font-weight: 700; }
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 24px;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    .modal-close:hover { background: var(--border); }
+    .modal-body { padding: 20px; }
+    .modal-img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      background: #222;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+    .modal-field { margin-bottom: 14px; }
+    .modal-field label {
+      display: block;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .modal-field input,
+    .modal-field textarea,
+    .modal-field select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+    }
+    .modal-field textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .modal-footer {
+      padding: 14px 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* Detail Modal */
+    .detail-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+    .detail-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--success);
+      margin: 12px 0;
+    }
+    .detail-platform {
+      display: inline-block;
+      background: var(--border);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .card-large {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+      }
+      .card-large-img {
+        width: 100%;
+        height: 180px;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .navbar-title { font-size: 18px; }
+      .logo { width: 36px; height: 36px; font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <div class="logo">GH</div>
+      <div class="navbar-title">GameHub</div>
+    </div>
+    <div class="navbar-right">
+      <button class="btn btn-outline" id="loginBtn">Login Admin</button>
+      <button class="btn btn-primary" id="addBtn" style="display:none">+ Tambah Game</button>
+      <button class="btn btn-outline" id="logoutBtn" style="display:none">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Steam Info Banner -->
+  <div class="steam-banner">
+    <span class="steam-logo">🎮</span>
+    <strong>Game Yang Dibeli Akan Masuk Ke Steam Library</strong>
+    <span style="margin:0 6px">•</span>
+    <span>Instant Delivery • 100% Original CD Key</span>
+  </div>
+
+  <!-- Search -->
+  <div class="search-container">
+    <input type="text" class="search-input" id="searchInput" placeholder="Cari game atau platform..." />
+  </div>
+
+  <!-- Games Container -->
+  <div class="games-container" id="gamesContainer">
+    <!-- Cards will be rendered here -->
+  </div>
+
+  <!-- Modal: Add/Edit Game -->
+  <div class="modal" id="formModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="formTitle">Tambah Game</div>
+        <button class="modal-close" id="formClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editId" />
+        <div class="modal-field">
+          <label>Nama Game</label>
+          <input type="text" id="inputName" placeholder="Contoh: Elden Ring" required />
+        </div>
+        <div class="modal-field">
+          <label>URL Gambar</label>
+          <input type="url" id="inputImage" placeholder="https://..." />
+        </div>
+        <div class="modal-field">
+          <label>Harga (Rp)</label>
+          <input type="number" id="inputPrice" placeholder="Contoh: 599000" required />
+        </div>
+        <div class="modal-field">
+          <label>Platform</label>
+          <input type="text" id="inputPlatform" placeholder="Steam, Epic, dll" required />
+        </div>
+        <div class="modal-field">
+          <label>Deskripsi</label>
+          <textarea id="inputDesc" placeholder="Jelaskan tentang game ini..."></textarea>
+        </div>
+        <div class="modal-field">
+          <label>Ukuran Kartu</label>
+          <select id="inputSize">
+            <option value="small">Kecil (Grid 2 Kolom)</option>
+            <option value="large">Besar (Full Width)</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="formCancel">Batal</button>
+        <button class="btn btn-primary" id="formSave">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Detail Game -->
+  <div class="modal" id="detailModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="detailTitle">Detail Game</div>
+        <button class="modal-close" id="detailClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img class="modal-img" id="detailImage" alt="Game" />
+        <div id="detailDesc" class="detail-desc"></div>
+        <div class="detail-price" id="detailPrice"></div>
+        <span class="detail-platform" id="detailPlatform"></span>
+      </div>
+      <div class="modal-footer" id="detailAdminActions" style="display:none; justify-content:space-between;">
+        <button class="btn btn-danger btn-sm" id="detailDelete">🗑️ Hapus</button>
+        <button class="btn btn-primary btn-sm" id="detailEdit">✏️ Edit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+    // 🔥 GANTI DENGAN CONFIG FIREBASE KAMU
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const gamesRef = collection(db, "games");
+
+    // State
+    let isAdmin = false;
+    let games = [];
+    let currentDetailId = null;
+
+    // DOM Elements
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const addBtn = document.getElementById('addBtn');
+    const formModal = document.getElementById('formModal');
+    const detailModal = document.getElementById('detailModal');
+    const gamesContainer = document.getElementById('gamesContainer');
+    const searchInput = document.getElementById('searchInput');
+
+    // Auth (Simple - ganti dengan Firebase Auth kalau mau lebih aman)
+    loginBtn.onclick = () => {
+      const pass = prompt("Masukkan password admin:");
+      if (pass === "admin123") { // ⚠️ Ganti dengan sistem auth yang lebih aman!
+        isAdmin = true;
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = 'block';
+        addBtn.style.display = 'block';
+        renderGames();
+        alert("✅ Login berhasil!");
+      } else {
+        alert("❌ Password salah!");
+      }
+    };
+
+    logoutBtn.onclick = () => {
+      isAdmin = false;
+      loginBtn.style.display = 'block';
+      logoutBtn.style.display = 'none';
+      addBtn.style.display = 'none';
+      renderGames();
+      alert("👋 Logout berhasil!");
+    };
+
+    // Open Add Modal
+    addBtn.onclick = () => openFormModal();
+
+    // Form Modal Controls
+    document.getElementById('formClose').onclick = () => formModal.classList.remove('active');
+    document.getElementById('formCancel').onclick = () => formModal.classList.remove('active');
+
+    // Detail Modal Controls
+    document.getElementById('detailClose').onclick = () => detailModal.classList.remove('active');
+
+    // Save Game (Add/Edit)
+    document.getElementById('formSave').onclick = async () => {
+      const id = document.getElementById('editId').value;
+      const game = {
+        name: document.getElementById('inputName').value.trim(),
+        image: document.getElementById('inputImage').value.trim() || 'https://via.placeholder.com/300x200?text=No+Image',
+        price: parseInt(document.getElementById('inputPrice').value) || 0,
+        platform: document.getElementById('inputPlatform').value.trim(),
+        description: document.getElementById('inputDesc').value.trim(),
+        size: document.getElementById('inputSize').value, // 'large' or 'small'
+        createdAt: new Date()
+      };
+
+      if (!game.name || !game.price || !game.platform) {
+        alert("⚠️ Nama, Harga, dan Platform wajib diisi!");
+        return;
+      }
+
+      try {
+        if (id) {
+          await updateDoc(doc(db, "games", id), game);
+        } else {
+          await addDoc(gamesRef, game);
+        }
+        formModal.classList.remove('active');
+        resetForm();
+      } catch (e) {
+        alert("❌ Error: " + e.message);
+      }
+    };
+
+    // Delete Game
+    async function deleteGame(id) {
+      if (confirm("Yakin ingin menghapus game ini?")) {
+        try {
+          await deleteDoc(doc(db, "games", id));
+          detailModal.classList.remove('active');
+        } catch (e) {
+          alert("❌ Gagal hapus: " + e.message);
+        }
+      }
+    }
+
+    // Open Form Modal (Add or Edit)
+    function openFormModal(game = null) {
+      document.getElementById('formTitle').textContent = game ? 'Edit Game' : 'Tambah Game';
+      document.getElementById('editId').value = game?.id || '';
+      document.getElementById('inputName').value = game?.name || '';
+      document.getElementById('inputImage').value = game?.image || '';
+      document.getElementById('inputPrice').value = game?.price || '';
+      document.getElementById('inputPlatform').value = game?.platform || '';
+      document.getElementById('inputDesc').value = game?.description || '';
+      document.getElementById('inputSize').value = game?.size || 'small';
+      formModal.classList.add('active');
+    }
+
+    // Open Detail Modal
+    function openDetailModal(game) {
+      currentDetailId = game.id;
+      document.getElementById('detailTitle').textContent = game.name;
+      document.getElementById('detailImage').src = game.image;
+      document.getElementById('detailDesc').textContent = game.description || 'Tidak ada deskripsi.';
+      document.getElementById('detailPrice').textContent = `Rp ${game.price.toLocaleString('id-ID')}`;
+      document.getElementById('detailPlatform').textContent = game.platform;
+      
+      // Admin actions in detail modal
+      const adminActions = document.getElementById('detailAdminActions');
+      if (isAdmin) {
+        adminActions.style.display = 'flex';
+        document.getElementById('detailEdit').onclick = () => {
+          detailModal.classList.remove('active');
+          openFormModal(game);
+        };
+        document.getElementById('detailDelete').onclick = () => deleteGame(game.id);
+      } else {
+        adminActions.style.display = 'none';
+      }
+      
+      detailModal.classList.add('active');
+    }
+
+    // Reset Form
+    function resetForm() {
+      document.getElementById('editId').value = '';
+      document.getElementById('inputName').value = '';
+      document.getElementById('inputImage').value = '';
+      document.getElementById('inputPrice').value = '';
+      document.getElementById('inputPlatform').value = '';
+      document.getElementById('inputDesc').value = '';
+      document.getElementById('inputSize').value = 'small';
+    }
+
+    // Filter Games by Search
+    function filterGames() {
+      const keyword = searchInput.value.toLowerCase().trim();
+      if (!keyword) return games;
+      return games.filter(g => 
+        g.name.toLowerCase().includes(keyword) || 
+        g.platform.toLowerCase().includes(keyword)
+      );
+    }
+
+    // Render Games
+    function renderGames() {
+      const filtered = filterGames();
+      gamesContainer.innerHTML = '';
+
+      // Separate large and small cards
+      const largeCards = filtered.filter(g => g.size === 'large');
+      const smallCards = filtered.filter(g => g.size === 'small');
+
+      // Render large cards first (full width)
+      largeCards.forEach(game => {
+        const card = document.createElement('div');
+        card.className = 'card-large';
+        card.innerHTML = `
+          <img class="card-large-img" src="${game.image}" alt="${game.name}" onerror="this.src='https://via.placeholder.com/140x100?text=No+Image'">
+          <div class="card-large-content">
+            <div class="card-large-title">${game.name}</div>
+            <div class="card-large-desc">${game.description || 'Tidak ada deskripsi.'}</div>
+            <div class="card-large-price">Rp ${game.price.toLocaleString('id-ID')}</div>
+          </div>
+        `;
+        if (isAdmin) {
+          const actions = document.createElement('div');
+          actions.className = 'admin-actions';
+          actions.innerHTML = `
+            <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); openFormModal(${JSON.stringify(game).replace(/"/g, '&quot;')})">✏️</button>
+            <button class="btn btn-danger btn-sm" onclick="event.stopPropagation(); deleteGame('${game.id}')">🗑️</button>
+          `;
+          card.style.position = 'relative';
+          card.appendChild(actions);
+        }
+        card.onclick = (e) => {
+          if (!e.target.closest('.admin-actions')) openDetailModal(game);
+        };
+        gamesContainer.appendChild(card);
+      });
+
+      // Render small cards in 2-column grid
+      if (smallCards.length > 0) {
+        const grid = document.createElement('div');
+        grid.className = 'cards-grid';
+        
+        smallCards.forEach(game => {
+          const card = document.createElement('div');
+          card.className = 'card-small';
+          card.innerHTML = `
+            <img class="card-small-img" src="${game.image}" alt="${game.name}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+            <div class="card-small-body">
+              <div class="card-small-title">${game.name}</div>
+              <div class="card-small-desc">${game.description || 'Tidak ada deskripsi.'}</div>
+              <div class="card-small-footer">
+                <span class="card-small-price">Rp ${game.price.toLocaleString('id-ID')}</span>
+                <span class="card-small-platform">${game.platform}</span>
+              </div>
+            </div>
+          `;
+          if (isAdmin) {
+            const actions = document.createElement('div');
+            actions.className = 'admin-actions';
+            actions.innerHTML = `
+              <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); openFormModal(${JSON.stringify(game).replace(/"/g, '&quot;')})">✏️</button>
+              <button class="btn btn-danger btn-sm" onclick="event.stopPropagation(); deleteGame('${game.id}')">🗑️</button>
+            `;
+            card.style.position = 'relative';
+            card.appendChild(actions);
+          }
+          card.onclick = (e) => {
+            if (!e.target.closest('.admin-actions')) openDetailModal(game);
+          };
+          grid.appendChild(card);
+        });
+        
+        gamesContainer.appendChild(grid);
+      }
+
+      if (filtered.length === 0) {
+        gamesContainer.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:40px;">🎮 Game tidak ditemukan</div>';
+      }
+    }
+
+    // Listen to Firebase Realtime Updates
+    const q = query(gamesRef, orderBy('createdAt', 'desc'));
+    onSnapshot(q, (snapshot) => {
+      games = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      renderGames();
+    });
+
+    // Search Input Listener
+    searchInput.addEventListener('input', renderGames);
+
+    // Make functions globally available for inline onclick
+    window.openFormModal = openFormModal;
+    window.deleteGame = deleteGame;
+  </script>
+</body>
+</html>
